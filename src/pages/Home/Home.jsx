@@ -1,4 +1,4 @@
-import { TrendingList } from 'components/TrendigList/TrendingList';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { getMovie } from 'Healpers/apiService';
 import { useState, useEffect } from 'react';
 import { HomeSection, HomeList } from './Home.styled';
@@ -30,7 +30,7 @@ export const Home = () => {
     <HomeSection>
       <h1>Trending Today</h1>
       <HomeList>
-        <TrendingList movies={trendsMovies} />
+        <MoviesList movies={trendsMovies} />
       </HomeList>
     </HomeSection>
   );

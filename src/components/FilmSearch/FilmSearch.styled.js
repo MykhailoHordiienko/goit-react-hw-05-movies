@@ -37,3 +37,9 @@ export const Button = styled.button`
       0px 2px 2px rgba(0, 0, 0, 0.12);
   }
 `;
+
+export const SearchList = styled.ul`
+  list-style: none;
+  padding: 20px;
+  text-align: center;
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   NavItem,
   AditionalList,
@@ -8,14 +8,19 @@ import {
 } from './AditionalInfo.styled';
 
 export const AditionalInfo = () => {
+  const location = useLocation();
   return (
     <AditionalSection>
       <AditionalList>
         <AditionalItem>
-          <NavItem to="cast">Cast</NavItem>
+          <NavItem to="cast" state={{ from: location.state?.from } ?? '/'}>
+            Cast
+          </NavItem>
         </AditionalItem>
         <AditionalItem>
-          <NavItem to="reviews">Reviews</NavItem>
+          <NavItem to="reviews" state={{ from: location.state?.from } ?? '/'}>
+            Reviews
+          </NavItem>
         </AditionalItem>
       </AditionalList>
     </AditionalSection>

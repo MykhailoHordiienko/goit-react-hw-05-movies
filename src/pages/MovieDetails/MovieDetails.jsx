@@ -1,14 +1,21 @@
 import { AditionalInfo } from 'components/AditionalInfo/AditionalInfo.jsx';
 import React, { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovie } from '../../Healpers/apiService.js';
-import { SectionDetails, DetailsText, Genr } from './MovieDetails.styled.js';
+import DefaultImg from '../../DefaultImg/defaultImg.jpeg';
+import {
+  SectionDetails,
+  DetailsText,
+  Genr,
+  BackLink,
+} from './MovieDetails.styled.js';
 
 export const MovieDetails = () => {
   const { moviesId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     async function getInfo() {
@@ -42,7 +49,14 @@ export const MovieDetails = () => {
   return (
     <>
       <SectionDetails>
-        <img src={`https://image.tmdb.org/t/p/w500/${poster}`} alt={title} />
+        <img
+          src={
+            poster === null
+              ? DefaultImg
+              : `https://image.tmdb.org/t/p/w500/${poster}`
+          }
+          alt={title}
+        />
 
         <DetailsText>
           <h2>
@@ -52,6 +66,8 @@ export const MovieDetails = () => {
           {genres.map(el => (
             <Genr key={el.id}>{el.name}</Genr>
           ))}
+
+          <BackLink to={location.state?.from ?? '/'}>Back</BackLink>
         </DetailsText>
       </SectionDetails>
       <AditionalInfo />
