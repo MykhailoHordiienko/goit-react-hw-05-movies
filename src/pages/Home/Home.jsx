@@ -1,6 +1,7 @@
 import { TrendingList } from 'components/TrendigList/TrendingList';
 import { getMovie } from 'Healpers/apiService';
 import { useState, useEffect } from 'react';
+import { HomeSection, HomeList } from './Home.styled';
 
 export const Home = () => {
   const [trendsMovies, setTrendsMovies] = useState([]);
@@ -26,9 +27,11 @@ export const Home = () => {
   }, []);
 
   return (
-    <section>
+    <HomeSection>
       <h1>Trending Today</h1>
-      <TrendingList movies={trendsMovies} />
-    </section>
+      <HomeList>
+        <TrendingList movies={trendsMovies} />
+      </HomeList>
+    </HomeSection>
   );
 };

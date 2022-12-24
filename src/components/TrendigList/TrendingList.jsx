@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { ListItem, LinkItem } from './TrendingList.styled';
 
 export const TrendingList = ({ movies }) => {
   return (
     <>
       {movies.map(film => (
-        <li key={film.id}>
-          <Link to={`/movies/${film.id}`}>{film.title}</Link>
-        </li>
+        <ListItem key={film.id}>
+          <LinkItem to={`/movies/${film.id}`}>{film.title}</LinkItem>
+        </ListItem>
       ))}
     </>
   );

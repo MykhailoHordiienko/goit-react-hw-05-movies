@@ -1,5 +1,6 @@
+import { AditionalInfo } from 'components/AditionalInfo/AditionalInfo.jsx';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { getMovie } from '../../Healpers/apiService.js';
 import { SectionDetails, DetailsText, Genr } from './MovieDetails.styled.js';
 
@@ -37,7 +38,7 @@ export const MovieDetails = () => {
     genres,
     poster_path: poster,
   } = movie;
-  console.log(movie);
+
   return (
     <>
       <SectionDetails>
@@ -53,6 +54,8 @@ export const MovieDetails = () => {
           ))}
         </DetailsText>
       </SectionDetails>
+      <AditionalInfo />
+      <Outlet />
     </>
   );
 };
