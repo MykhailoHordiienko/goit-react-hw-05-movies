@@ -1,5 +1,7 @@
 import { MoviesList } from 'components/MoviesList/MoviesList';
+import { DefaultImg } from 'DefaultImg/DefaultImg';
 import { getMovie } from 'Healpers/apiService';
+import { Loader } from 'Healpers/Loader';
 import { useState, useEffect } from 'react';
 import { HomeSection, HomeList } from './Home.styled';
 
@@ -29,8 +31,9 @@ export const Home = () => {
   return (
     <HomeSection>
       <h1>Trending Today</h1>
+      {loader && <Loader />}
       <HomeList>
-        <MoviesList movies={trendsMovies} />
+        {error ? <DefaultImg /> : <MoviesList movies={trendsMovies} />}
       </HomeList>
     </HomeSection>
   );

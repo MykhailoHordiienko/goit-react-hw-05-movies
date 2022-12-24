@@ -1,8 +1,10 @@
 import { MoviesList } from 'components/MoviesList/MoviesList';
 import { getMovie } from 'Healpers/apiService';
+import { Loader } from 'Healpers/Loader';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Form, Input, Button, SearchList } from './FilmSearch.styled';
+import { DefaultImg } from 'DefaultImg/DefaultImg';
 
 export const FilmSearch = () => {
   const [searchRes, setSearchRes] = useState(null);
@@ -27,7 +29,8 @@ export const FilmSearch = () => {
       try {
         setLoader(true);
         const res = await getMovie.search(query);
-        if (!res.data.results) {
+
+        if (res.data.results <= 0) {
           setError(true);
         }
         setSearchRes(res.data.results);
@@ -38,6 +41,9 @@ export const FilmSearch = () => {
       }
     }
     getRes();
+    return () => {
+      setError(false);
+    };
   }, [query]);
 
   return (
@@ -56,7 +62,14 @@ export const FilmSearch = () => {
           placeholder="Search Movies"
         />
       </Form>
-      <SearchList>{searchRes && <MoviesList movies={searchRes} />}</SearchList>
+      {loader && <Loader />}
+      {error ? (
+        <DefaultImg />
+      ) : (
+        <SearchList>
+          {searchRes && <MoviesList movies={searchRes} />}
+        </SearchList>
+      )}
     </>
   );
 };

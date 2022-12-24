@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getMovie } from 'Healpers/apiService';
 import { ReviewsItem } from 'components/ReviewsItem/ReviewsItem';
 import { ReviewsSection, ReviwesTitle } from './Reviews.styled';
+import { Loader } from 'Healpers/Loader';
+import { DefaultImg } from 'DefaultImg/DefaultImg';
 
 export const Reviews = () => {
   const params = useParams();
@@ -17,7 +19,7 @@ export const Reviews = () => {
       try {
         setLoader(true);
         const res = await getMovie.reviews(moviesId);
-        if (!res.data.results) {
+        if (res.data.results <= 0) {
           setError(true);
         }
         setReview(res.data.results);
@@ -37,18 +39,23 @@ export const Reviews = () => {
   return (
     <ReviewsSection>
       <ReviwesTitle>Reviews</ReviwesTitle>
-      <ul>
-        {review.map(({ author, id, updated_at, content }) => {
-          return (
-            <ReviewsItem
-              key={id}
-              author={author}
-              date={updated_at}
-              content={content}
-            />
-          );
-        })}
-      </ul>
+      {error && <DefaultImg />}
+      {loader ? (
+        <Loader />
+      ) : (
+        <ul>
+          {review.map(({ author, id, updated_at, content }) => {
+            return (
+              <ReviewsItem
+                key={id}
+                author={author}
+                date={updated_at}
+                content={content}
+              />
+            );
+          })}
+        </ul>
+      )}
     </ReviewsSection>
   );
 };

@@ -1,5 +1,7 @@
 import { CastItem } from 'components/CastItem/CastItem';
+import { DefaultImg } from 'DefaultImg/DefaultImg';
 import { getMovie } from 'Healpers/apiService';
+import { Loader } from 'Healpers/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CastList, CastSection } from './Cast.styled';
@@ -18,7 +20,7 @@ export const Cast = () => {
         setLoader(true);
         const res = await getMovie.actors(moviesId);
 
-        if (!res.data) {
+        if (res.data.cast <= 0) {
           setError(true);
         }
         setFilmCast(res.data.cast);
@@ -36,18 +38,23 @@ export const Cast = () => {
 
   return (
     <CastSection>
-      <CastList>
-        {filmCast.map(({ id, profile_path, name, character }) => {
-          return (
-            <CastItem
-              key={id}
-              profile={profile_path}
-              name={name}
-              character={character}
-            />
-          );
-        })}
-      </CastList>
+      {error && <DefaultImg />}
+      {loader ? (
+        <Loader />
+      ) : (
+        <CastList>
+          {filmCast.map(({ id, profile_path, name, character }) => {
+            return (
+              <CastItem
+                key={id}
+                profile={profile_path}
+                name={name}
+                character={character}
+              />
+            );
+          })}
+        </CastList>
+      )}
     </CastSection>
   );
 };

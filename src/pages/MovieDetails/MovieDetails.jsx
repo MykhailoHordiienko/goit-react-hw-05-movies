@@ -2,15 +2,17 @@ import { AditionalInfo } from 'components/AditionalInfo/AditionalInfo.jsx';
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovie } from '../../Healpers/apiService.js';
-import DefaultImg from '../../DefaultImg/defaultImg.jpeg';
+import defaultImg from '../../DefaultImg/defaultImg.jpeg';
 import {
   SectionDetails,
   DetailsText,
   Genr,
   BackLink,
 } from './MovieDetails.styled.js';
+import { DefaultImg } from 'DefaultImg/DefaultImg.jsx';
+import { Loader } from 'Healpers/Loader.jsx';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { moviesId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loader, setLoader] = useState(false);
@@ -48,30 +50,39 @@ export const MovieDetails = () => {
 
   return (
     <>
-      <SectionDetails>
-        <img
-          src={
-            poster === null
-              ? DefaultImg
-              : `https://image.tmdb.org/t/p/w500/${poster}`
-          }
-          alt={title}
-        />
+      {error ? (
+        <DefaultImg />
+      ) : (
+        <>
+          {loader && <Loader />}
+          <SectionDetails>
+            <img
+              src={
+                poster === null
+                  ? defaultImg
+                  : `https://image.tmdb.org/t/p/w500/${poster}`
+              }
+              alt={title}
+            />
 
-        <DetailsText>
-          <h2>
-            {title} --- {date}
-          </h2>
-          <p>{overview}</p>
-          {genres.map(el => (
-            <Genr key={el.id}>{el.name}</Genr>
-          ))}
+            <DetailsText>
+              <h2>
+                {title} --- {date}
+              </h2>
+              <p>{overview}</p>
+              {genres.map(el => (
+                <Genr key={el.id}>{el.name}</Genr>
+              ))}
 
-          <BackLink to={location.state?.from ?? '/'}>Back</BackLink>
-        </DetailsText>
-      </SectionDetails>
-      <AditionalInfo />
-      <Outlet />
+              <BackLink to={location.state?.from ?? '/'}>Back</BackLink>
+            </DetailsText>
+          </SectionDetails>
+          <AditionalInfo />
+          <Outlet />
+        </>
+      )}
     </>
   );
 };
+
+export default MovieDetails;

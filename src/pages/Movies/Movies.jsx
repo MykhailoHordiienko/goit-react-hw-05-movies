@@ -1,14 +1,17 @@
 import { FilmSearch } from 'components/FilmSearch/FilmSearch';
-import React from 'react';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { MoviesSection } from './Movies.styled';
-// import { Outlet } from 'react-router-dom';
 
-export const Movies = () => {
+const Movies = () => {
   return (
     <MoviesSection>
       <FilmSearch />
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </MoviesSection>
   );
 };
+
+export default Movies;

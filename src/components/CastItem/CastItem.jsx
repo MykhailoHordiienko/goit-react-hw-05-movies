@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultImg from '../../DefaultImg/defaultImg.jpeg';
 import { CastTitles, CastImg, CastListItem } from './CastItem.styled';
+import PropTypes from 'prop-types';
 
 export const CastItem = ({ profile, name, character }) => {
   return (
@@ -17,4 +18,10 @@ export const CastItem = ({ profile, name, character }) => {
       <CastTitles>{name}</CastTitles>
     </CastListItem>
   );
+};
+
+CastItem.propTypes = {
+  profile: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  character: PropTypes.string,
 };

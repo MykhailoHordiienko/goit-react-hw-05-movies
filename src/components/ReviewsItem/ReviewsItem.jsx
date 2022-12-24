@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 export const ReviewsItem = ({ author, date, content }) => {
   const localDate = new Date(date);
@@ -12,4 +12,10 @@ export const ReviewsItem = ({ author, date, content }) => {
       <p>{content}</p>
     </li>
   );
+};
+
+ReviewsItem.propTypes = {
+  author: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };

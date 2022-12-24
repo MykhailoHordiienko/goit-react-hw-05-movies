@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header, NavItem } from './Layaout.styled';
+import { Suspense } from 'react';
 
 export const Layaout = () => {
   return (
@@ -14,7 +15,9 @@ export const Layaout = () => {
         </nav>
       </Header>
       <main>
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </main>
     </>
   );
