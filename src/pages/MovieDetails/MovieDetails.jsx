@@ -1,6 +1,6 @@
 import { AditionalInfo } from 'components/AditionalInfo/AditionalInfo.jsx';
 import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getMovie } from '../../Healpers/apiService.js';
 import defaultImg from '../../DefaultImg/defaultImg.jpeg';
 import {
@@ -19,23 +19,27 @@ const MovieDetails = () => {
   const [error, setError] = useState(false);
   const location = useLocation();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function getInfo() {
       try {
         setLoader(true);
         const res = await getMovie.details(moviesId);
+
         if (!res.data) {
           setError(true);
         }
         setMovie(res.data);
       } catch {
         setError(true);
+        navigate('/', { replace: true });
       } finally {
         setLoader(false);
       }
     }
     getInfo();
-  }, [moviesId]);
+  }, [moviesId, navigate]);
 
   if (!movie) {
     return null;

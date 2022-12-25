@@ -19,6 +19,7 @@ export const getMovie = {
     const response = await axios.get(
       `movie/${movieId}?api_key=${API_KEY}&language=en-US`
     );
+
     return response;
   },
   actors: async movieId => {
