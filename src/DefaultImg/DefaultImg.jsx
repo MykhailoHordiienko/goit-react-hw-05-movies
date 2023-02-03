@@ -1,5 +1,6 @@
 import DefaultJpeg from './defaultImg.jpeg';
+import { StyledDefaultImg } from './DefaultImgStyled';
 
 export const DefaultImg = () => {
-  return <img src={DefaultJpeg} alt="error" />;
+  return <StyledDefaultImg src={DefaultJpeg} alt="error" />;
 };

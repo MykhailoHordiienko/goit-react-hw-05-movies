@@ -5,6 +5,7 @@ import { getMovie } from '../../Healpers/apiService.js';
 import defaultImg from '../../DefaultImg/defaultImg.jpeg';
 import {
   SectionDetails,
+  Img,
   DetailsText,
   Genr,
   BackLink,
@@ -60,7 +61,7 @@ const MovieDetails = () => {
         <>
           {loader && <Loader />}
           <SectionDetails>
-            <img
+            <Img
               src={
                 poster === null
                   ? defaultImg

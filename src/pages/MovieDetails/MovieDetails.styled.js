@@ -3,6 +3,25 @@ import styled from 'styled-components';
 
 export const SectionDetails = styled.section`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(181, 182, 196, 1) 100%,
+    rgba(204, 208, 209, 1) 7%,
+    rgba(237, 237, 241, 0.975249474789916) 1%
+  );
+
+  @media screen and (min-width: 680px) {
+    flex-direction: row;
+  }
+`;
+
+export const Img = styled.img`
+  width: 300px;
+  @media screen and (min-width: 1000px) {
+    width: auto;
+  }
 `;
 
 export const DetailsText = styled.div`
